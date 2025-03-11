@@ -1,0 +1,133 @@
+---
+title: Getting Started with Rust - A Systems Programming Language
+publishedAt: "2024-03-10"
+summary: "An introduction to Rust's key features with practical code examples"
+---
+
+# Getting Started with Rust
+
+Rust is a systems programming language that emphasizes safety, performance, and concurrency. Unlike other systems languages, Rust guarantees memory safety without using a garbage collector.
+
+## Why Rust?
+
+- **Memory Safety**: Rust's ownership system prevents common bugs like null pointer dereferencing and buffer overflows at compile-time
+- **Zero-Cost Abstractions**: High-level concepts compile down to efficient machine code
+- **Modern Developer Experience**: Great tooling, helpful compiler messages, and a growing ecosystem
+
+
+## Hello, Rust!
+
+Let's start with the traditional "Hello, World!" program:
+
+```rust
+fn main() {
+    println!("Hello, Rust!");
+}
+```
+
+## Variables and Mutability
+
+Rust variables are immutable by default, which helps prevent bugs:
+
+```rust
+fn main() {
+    // Immutable variable
+    let x = 5;
+    
+    // This would cause a compile error:
+    // x = 6;
+    
+    // To make a variable mutable, use `mut`:
+    let mut y = 5;
+    y = 6; // This works!
+    
+    println!("x = {}, y = {}", x, y);
+}
+```
+
+## Ownership and Borrowing
+
+Rust's most distinctive feature is its ownership system. Here's a quick example:
+
+```rust
+fn main() {
+    // String is a heap-allocated type
+    let s1 = String::from("hello");
+    
+    // This moves ownership to s2, s1 is no longer valid
+    let s2 = s1;
+    
+    // This would cause an error:
+    // println!("s1: {}", s1);
+    
+    // This works:
+    println!("s2: {}", s2);
+    
+    // Borrowing example - references
+    let s3 = String::from("world");
+    
+    // We borrow s3 (immutable reference)
+    let len = calculate_length(&s3);
+    
+    // We can still use s3 here
+    println!("The length of '{}' is {}.", s3, len);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len() // Returns the length of the string
+    // s goes out of scope, but since it's just a reference,
+    // the String it points to is not dropped
+}
+```
+
+## Building a Simple Web Server with Rust
+
+Here's a more complex example - a basic HTTP server using the `hyper` crate:
+
+```rust
+use hyper::service::{make_service_fn, service_fn};
+use hyper::{Body, Request, Response, Server};
+use std::convert::Infallible;
+use std::net::SocketAddr;
+
+async fn handle(_req: Request<Body>) -> Result<Response<Body>, Infallible> {
+    Ok(Response::new(Body::from("Hello, Rust Web Server!")))
+}
+
+#[tokio::main]
+async fn main() {
+    // Define the address to bind to
+    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+
+    // Create a service
+    let make_svc = make_service_fn(|_conn| async {
+        Ok::<_, Infallible>(service_fn(handle))
+    });
+
+    // Create the server
+    let server = Server::bind(&addr).serve(make_svc);
+
+    println!("Server running on http://{}", addr);
+
+    // Run the server
+    if let Err(e) = server.await {
+        eprintln!("server error: {}", e);
+    }
+}
+```
+
+To run this example, you would need to add the following to your `Cargo.toml`:
+
+```toml
+[dependencies]
+hyper = { version = "0.14", features = ["full"] }
+tokio = { version = "1", features = ["full"] }
+```
+
+## Conclusion
+
+Rust's combination of safety guarantees, performance, and modern language features makes it an excellent choice for systems programming. Whether you're building CLI tools, web servers, or embedded applications, Rust provides the tools to write reliable and efficient code.
+
+Ready to get started? Install Rust with [rustup](https://rustup.rs/) and check out the [Rust Book](https://doc.rust-lang.org/book/) for a comprehensive introduction to the language.
+
+Happy coding!
