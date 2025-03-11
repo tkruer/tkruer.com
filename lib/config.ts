@@ -54,7 +54,6 @@ export const personalInfo: IPersonalInfo = {
         image: "https://avatars.githubusercontent.com/u/30127502?v=4",
         randomFacts: [
             "neovim is the best text editor",
-            "golang is one of the best programming languages",
         ],
     },
     career: {

@@ -1,15 +1,8 @@
 import { Notes } from "@/components/notes";
 import { personalInfo } from "@/lib/config";
-import Image from "next/image";
 
 export default function Home() {
-  const notePosts = [
-    {
-      date: "January 1, 2025",
-      title: "Writing a Serverless Vector Database",
-      slug: "serverless-vector-database",
-    },
-  ]
+
   return (
     <main className="min-h-screen flex flex-col">
       <div className="flex-grow">
@@ -18,10 +11,8 @@ export default function Home() {
           {personalInfo.title}
         </p>
         <div className="space-y-6">
-        {notePosts.map((post) => (
-          <Notes key={post.slug}  />
-        ))}
-      </div>
+          <Notes />
+        </div>
       </div>
     </main>
   )
