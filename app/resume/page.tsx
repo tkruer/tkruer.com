@@ -1,6 +1,5 @@
 import { personalInfo } from "@/lib/config";
 
-
 export default function Resume() {
     return (
         <main className="min-h-screen">

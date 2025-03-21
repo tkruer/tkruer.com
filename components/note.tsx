@@ -2,6 +2,8 @@
 import { getPostData } from '@/lib/get-notes'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import rehypePrettyCode from 'rehype-pretty-code'
+import GitHubIcon from '@/components/github-icon'
+import Image from 'next/image'
 
 export async function Note({ note }: { note: string }) {
   const { metadata, content } = await getPostData(note)
@@ -77,4 +79,49 @@ const components = {
     em: (props: React.HTMLProps<HTMLElement>) => (
       <em className="italic" {...props} />
     ),
+  
+    GitHubIcon: ({ href, className }: { href: string, className?: string }) => (
+      <a 
+        href={href}
+        className="inline-flex items-center gap-2 hover:opacity-80" 
+        target="_blank" 
+        rel="noopener noreferrer"
+      >
+        <GitHubIcon className={className} />
+      </a>
+    ),
+
+    figure: ({ children, caption }: { children: React.ReactNode, caption?: string }) => {
+        return (
+          <figure className="my-8">
+            {children}
+            {caption && (
+              <figcaption className="text-center text-sm mt-2">
+                {caption}
+              </figcaption>
+            )}
+          </figure>
+        )
+    },
+
+    img: ({ src, alt }: { src: string, alt: string }) => {
+      return (
+        <div className="my-6 relative">
+          <Image
+            src={src}
+            alt={alt}
+            width={800}
+            height={400}
+            className="rounded-lg transition-opacity duration-300 hover:opacity-95"
+            style={{ maxWidth: '100%', height: 'auto' }}
+            loading="lazy"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.onerror = null;
+              target.src = '/public/images/fallback.png'; 
+            }}
+          />
+        </div>
+      )
+    },
   };
