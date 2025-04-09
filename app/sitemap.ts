@@ -1,13 +1,13 @@
 
 type notePost = {
-    slug: string
-    metadata: {
-        publishedAt: string
-    }
+  slug: string
+  metadata: {
+    publishedAt: string
+  }
 }
 
 function getnotePosts(): notePost[] {
-    return []
+  return []
 }
 
 
@@ -16,11 +16,11 @@ export const baseUrl = 'https://tkruer.com/'
 export default async function sitemap() {
   "use server"
   const notes = (await getnotePosts()).map((post) => ({
-    url: `${baseUrl}/note/${post.slug}`,
+    url: `${baseUrl}/notes/${post.slug}`,
     lastModified: post.metadata.publishedAt,
   }))
 
-  const routes = ['', '/note'].map((route) => ({
+  const routes = ['/notes'].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split('T')[0],
   }))

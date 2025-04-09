@@ -7,6 +7,7 @@ import { Header } from "@/components/header";
 import { Suspense } from "react";
 import { baseUrl } from "@/lib/config";
 import 'prismjs/themes/prism-tomorrow.css';
+import { Analytics } from "@vercel/analytics/react"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -69,9 +70,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="max-w-3xl mx-auto px-4">
-            <Header />  
+            <Header />
             <Suspense fallback={<>Loading...</>}>
               {children}
+              <Analytics />
             </Suspense>
             <Footer />
           </div>
