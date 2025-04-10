@@ -7,7 +7,7 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
 
   const { slug } = await params
   const noteViews = await redis.get(`note:${slug}`)
-  console.log(noteViews)
+  console.log(`note:${slug} - ${noteViews}`)
   if (noteViews === null) {
     await redis.set(`note:${slug}`, 0)
   }
@@ -19,3 +19,4 @@ export default async function NotePage({ params }: { params: Promise<{ slug: str
     </main>
   )
 }
+
