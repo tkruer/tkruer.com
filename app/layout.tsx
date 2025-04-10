@@ -9,6 +9,7 @@ import { baseUrl } from "@/lib/config";
 import 'prismjs/themes/prism-tomorrow.css';
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Skeleton } from "@/components/ui/skeleton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -72,7 +73,13 @@ export default function RootLayout({
         >
           <div className="max-w-3xl mx-auto px-4">
             <Header />
-            <Suspense fallback={<>Loading...</>}>
+            <Suspense fallback={
+              <div className="flex flex-col space-y-3">
+                <Skeleton className="h-[225px] max-w-3xl rounded-xl" />
+                <Skeleton className="h-[225px] max-w-3xl rounded-xl" />
+                <Skeleton className="h-[225px] max-w-3xl rounded-xl" />
+              </div>
+            }>
               {children}
               <Analytics />
               <SpeedInsights />
