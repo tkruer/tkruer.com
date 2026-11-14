@@ -7,7 +7,8 @@
     "dev:mdx": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "tsc --noEmit && next lint"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
