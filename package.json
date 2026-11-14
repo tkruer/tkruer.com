@@ -26,7 +26,7 @@
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.479.0",
-    "next": "15.6.0-canary.60",
+    "next": "15.5.29",
     "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.4.5",
     "prismjs": "^1.30.0",
@@ -53,12 +53,9 @@
     "@types/react-dom": "^19",
     "@types/react-syntax-highlighter": "^15.5.13",
     "eslint": "^9",
-    "eslint-config-next": "15.2.2-canary.6",
+    "eslint-config-next": "15.5.29",
     "postcss": "^8.5.3",
     "tailwindcss": "^4",
     "typescript": "^5"
-  },
-  "overrides": {
-    "next": "15.2.2-canary.6"
   }
 }
